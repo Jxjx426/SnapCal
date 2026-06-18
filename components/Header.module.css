@@ -3,11 +3,20 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px 24px;
-    background: var(--white);
-    border-bottom: 1.5px solid var(--border);
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
     z-index: 100;
+  }
+
+  .headerInner {
+    max-width: 480px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
   }
   
   .logo {
@@ -20,7 +29,7 @@
     width: 38px;
     height: 38px;
     border-radius: 50%;
-    background: var(--green-light);
+    background: var(--secondary);
     border: 2px solid var(--green-mid);
     display: flex;
     align-items: center;
@@ -29,15 +38,17 @@
   }
   
   .logoText {
+    font-family: 'Lora', serif;
     font-size: 20px;
-    font-weight: 800;
+    font-weight: 600;
     color: var(--text);
+    letter-spacing: 0.01em;
   }
-  
+
   .logoText span {
-    color: var(--green);
+    color: var(--primary);
   }
-  
+    
   .btnKey {
     display: flex;
     align-items: center;
@@ -45,30 +56,32 @@
     padding: 7px 14px;
     border: 1.5px solid var(--border);
     border-radius: 20px;
-    background: var(--white);
+    background: var(--bg);
     font-family: 'Nunito', sans-serif;
     font-size: 13px;
     font-weight: 600;
-    color: var(--text);
+    color: var(--text-muted);
     cursor: pointer;
     transition: all 0.2s;
+    white-space: nowrap;
   }
   
   .btnKey:hover {
-    background: var(--cream);
-    border-color: var(--green-mid);
+    background: var(--secondary);
+    border-color: var(--accent);
+    color: var(--text);
   }
   
   .keyDot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #ccc;
+    background: var(--border);
     flex-shrink: 0;
     transition: background 0.2s;
   }
   
   .keyDot.active {
-    background: var(--green);
+    background: var(--success);
   }
   

@@ -50,23 +50,23 @@ export default function ResultPanel({ result, weightProvided }: ResultPanelProps
 
       <div className={styles.macroBarWrap}>
         <div className={styles.macroBar}>
-          <div className={styles.barSeg} style={{ background: 'var(--green)', width: `${pPct}%` }} />
-          <div className={styles.barSeg} style={{ background: 'var(--orange)', width: `${cPct}%` }} />
-          <div className={styles.barSeg} style={{ background: 'var(--yellow)', width: `${fPct}%` }} />
+          <div className={styles.barSeg} style={{ background: 'var(--protein)', width: `${pPct}%` }} />
+          <div className={styles.barSeg} style={{ background: 'var(--carbs)', width: `${cPct}%` }} />
+          <div className={styles.barSeg} style={{ background: 'var(--fat)', width: `${fPct}%` }} />
         </div>
         <div className={styles.barPct}>
-          <span style={{ color: 'var(--green)' }}>{pPct}%</span>
-          <span style={{ color: 'var(--orange)' }}>{cPct}%</span>
-          <span style={{ color: '#b8900a' }}>{fPct}%</span>
+          <span style={{ color: 'var(--protein)' }}>{pPct}%</span>
+          <span style={{ color: 'var(--carbs)' }}>{cPct}%</span>
+          <span style={{ color: 'var(--fat)' }}>{fPct}%</span>
         </div>
       </div>
 
       <div className={styles.macroList}>
         {[
-          { emoji: '🥩', label: 'Protein', val: p, bg: 'var(--green-light)' },
-          { emoji: '🌾', label: 'Carbs', val: c, bg: 'var(--orange-light)' },
-          { emoji: '🫒', label: 'Fats', val: f, bg: 'var(--yellow-light)' },
-          { emoji: '🔥', label: 'Fiber', val: fi, bg: '#f0f0f0' },
+          { emoji: '🥩', label: 'Protein', val: p, bg: 'var(--protein)' },
+          { emoji: '🌾', label: 'Carbs', val: c, bg: 'var(--carbs)' },
+          { emoji: '🫒', label: 'Fats', val: f, bg: 'var(--fat)' },
+          { emoji: '🔥', label: 'Fiber', val: fi, bg: 'var(--border)' },
         ].map(m => (
           <div className={styles.macroItem} key={m.label}>
             <div className={styles.macroDot} style={{ background: m.bg }}>{m.emoji}</div>

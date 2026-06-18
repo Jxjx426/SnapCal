@@ -1,30 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+ 
 :root {
-  --green: #3daa72;
-  --green-light: #e6f7ef;
-  --green-mid: #9fd9be;
-  --orange: #f07d3a;
-  --orange-light: #fff0e6;
-  --yellow: #f5c842;
-  --yellow-light: #fffae0;
-  --cream: #faf8f4;
-  --white: #ffffff;
-  --text: #2d2d2d;
-  --text-muted: #7a7a7a;
-  --border: #e8e4dc;
-  --radius: 18px;
-  --radius-sm: 10px;
-  --shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+  --bg:         #F8F4EE;
+  --card:       #FFFDF9;
+  --primary:    #C8A27C;
+  --secondary:  #E7D7C9;
+  --text:       #4A4036;
+  --text-muted: #9A8E85;
+  --accent:     #D8B89C;
+  --success:    #8FAF8F;
+  --protein:    #A7D7A7;
+  --carbs:      #F3C57A;
+  --fat:        #E6B89C;
+  --border:     #EDE5DA;
+  --border-soft:#F0E8DE;
+  --radius:     20px;
+  --radius-sm:  12px;
+  --radius-xs:  8px;
+  --shadow:     0 2px 16px rgba(74, 64, 54, 0.08);
+  --shadow-sm:  0 1px 6px rgba(74, 64, 54, 0.06);
 }
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
+ 
+* { box-sizing: border-box; margin: 0; padding: 0; }
+ 
 body {
   font-family: 'Nunito', sans-serif;
-  background: var(--cream);
+  background: var(--bg);
   color: var(--text);
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }

@@ -16,14 +16,14 @@
   }
   
   .motivation {
-    grid-column: 1 / -1;
     display: flex;
     align-items: center;
-    gap: 16px;
-    background: var(--green-light);
-    border: 1.5px solid var(--green-mid);
+    gap: 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 20px 24px;
+    padding: 18px 20px;
+    box-shadow: var(--shadow-sm);
   }
   
   @media (max-width: 700px) {
@@ -40,11 +40,21 @@
   .motivationText {
     font-size: 16px;
     font-weight: 700;
-    color: var(--text);
+    color: var(--text-muted);
     line-height: 1.6;
+  }
+
+  .motivationText strong {
+    display: block;
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 600;
+    margin-bottom: 2px;
+    font-style: italic;
   }
   
   .motivationText span {
-    color: var(--green);
+    color: var(--primary);
   }
   
