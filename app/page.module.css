@@ -32,29 +32,18 @@
     }
   }
   
-  .motivationIcon {
-    font-size: 40px;
-    flex-shrink: 0;
+  .insightRow {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
   }
   
-  .motivationText {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--text-muted);
-    line-height: 1.6;
-  }
-
-  .motivationText strong {
-    display: block;
-    font-family: 'Lora', serif;
-    font-size: 15px;
-    color: var(--text);
-    font-weight: 600;
-    margin-bottom: 2px;
-    font-style: italic;
+  @media (max-width: 700px) {
+    .insightRow {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
   }
   
-  .motivationText span {
-    color: var(--primary);
-  }
   
