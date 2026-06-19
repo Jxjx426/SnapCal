@@ -4,6 +4,8 @@ import Header from '@/components/Header'
 import KeyModal from '@/components/KeyModal'
 import UploadZone from '@/components/UploadZone'
 import ResultPanel, { NutritionResult } from '@/components/ResultPanel'
+import HealthScore from '@/components/HealthScore'
+import AIInsight from '@/components/AIInsight'
 import styles from './page.module.css'
 
 export default function Home() {
@@ -35,27 +37,29 @@ export default function Home() {
   }
 
   const analyze = async () => {
-    if (!imageB64) { setError('请先上传图片！'); return }
+    if (!imageB64) { setError('Please upload a photo first!'); return }
     if (!apiKey) { setKeyModalOpen(true); return }
 
     setIsLoading(true)
     setError('')
 
     const weightNote = weight
-      ? `用户提供的总重量：${weight}g。`
-      : '用户未提供重量，请你估算。'
+      ? `User provided total weight: ${weight}g.`
+      : 'User did not provide weight — please estimate it.'
 
-    const prompt = `你是一位专业营养师。请分析这张餐食图片，估算其营养成分。${weightNote}
+    const prompt = `You are a professional nutritionist with a warm, friendly tone. Analyse this meal photo and estimate its nutrition. ${weightNote}
 
-请只返回以下 JSON 格式，不要任何额外文字或 markdown：
+Return ONLY this JSON, no extra text or markdown:
 {
-  "kcal": <数字>,
-  "protein_g": <数字>,
-  "carbs_g": <数字>,
-  "fat_g": <数字>,
-  "fiber_g": <数字>,
-  "estimated_weight_g": <数字，如用户已提供则用用户的值>,
-  "foods_identified": "<简短描述识别到的食物，中文>"
+  "kcal": <number>,
+  "protein_g": <number>,
+  "carbs_g": <number>,
+  "fat_g": <number>,
+  "fiber_g": <number>,
+  "estimated_weight_g": <number, use user value if provided>,
+  "foods_identified": "<brief description in English>",
+  "health_score": <number 0-100, how nutritionally balanced this meal is>,
+  "ai_insight": "<one short, warm, non-robotic sentence (max 25 words) with friendly feedback on this meal, e.g. praising protein/fats and gently suggesting one improvement>"
 }`
 
     try {
@@ -86,8 +90,8 @@ export default function Home() {
       const parsed: NutritionResult = JSON.parse(clean)
       setResult(parsed)
     } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : '未知错误'
-      setError('分析失败：' + msg + '。请检查 API Key 是否正确。')
+      const msg = e instanceof Error ? e.message : 'Unknown error'
+      setError('Analysis failed: ' + msg)
     } finally {
       setIsLoading(false)
     }
@@ -112,16 +116,16 @@ export default function Home() {
           isLoading={isLoading}
           error={error}
         />
+
         <ResultPanel result={result} weightProvided={!!weight} />
 
-        <div className={styles.motivation}>
-          <div className={styles.motivationIcon}>🌱</div>
-          <div className={styles.motivationText}>
-            You didn&apos;t come this far to only come this far.
-            <br />
-            <span>You&apos;ve got this! ♥</span>
+        {result && (
+          <div className={styles.insightRow}>
+            <HealthScore score={result.health_score} />
+            <AIInsight insight={result.ai_insight} />
           </div>
-        </div>
+        )}
+
       </main>
 
       <KeyModal
