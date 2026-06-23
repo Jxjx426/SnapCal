@@ -1,5 +1,5 @@
 'use client'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import styles from './UploadZone.module.css'
 import { translations } from '@/lib/translations'
 
@@ -26,6 +26,8 @@ export default function UploadZone({
   onImageLoad, onAnalyze, isLoading, error, t,
 }: UploadZoneProps) {
   const fileRef = useRef<HTMLInputElement>(null)
+  const cameraRef = useRef<HTMLInputElement>(null)
+  const [pickerOpen, setPickerOpen] = useState(false)
 
   const handleFile = (file: File) => {
     if (!file.type.startsWith('image/')) return
@@ -42,6 +44,9 @@ export default function UploadZone({
     const file = e.dataTransfer.files[0]
     if (file) handleFile(file)
   }
+
+  const openCamera = () => { setPickerOpen(false); cameraRef.current?.click() }
+  const openGallery = () => { setPickerOpen(false); fileRef.current?.click() }
 
   return (
     <div className={styles.panel}>
@@ -99,7 +104,7 @@ export default function UploadZone({
           </>
         ) : (
           <div className={styles.placeholder}>
-            <div className={styles.placeholderIcon}>🍽️</div>
+            <div className={styles.placeholderIcon}>🍱</div>
             <div className={styles.placeholderText}>{t.tapToUpload}</div>
             <div className={styles.placeholderSub}>{t.fileTypes}</div>
           </div>
@@ -133,10 +138,37 @@ export default function UploadZone({
 
       {error && <div className={styles.errorBox}>{error}</div>}
 
+      {pickerOpen && (
+        <div className={styles.pickerBackdrop} onClick={() => setPickerOpen(false)}>
+          <div className={styles.pickerSheet} onClick={e => e.stopPropagation()}>
+            <button className={styles.pickerOption} onClick={openCamera}>
+              {t.takePhoto}
+            </button>
+            <button className={styles.pickerOption} onClick={openGallery}>
+              {t.chooseFromGallery}
+            </button>
+            <button className={styles.pickerCancel} onClick={() => setPickerOpen(false)}>
+              {t.cancel}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Gallery picker — no capture attribute */}
       <input
         ref={fileRef}
         type="file"
         accept="image/*"
+        style={{ display: 'none' }}
+        onChange={e => { const f = e.target.files?.[0]; if (f) handleFile(f) }}
+      />
+
+      {/* Camera capture — forces rear camera on mobile */}
+      <input
+        ref={cameraRef}
+        type="file"
+        accept="image/*"
+        capture="environment"
         style={{ display: 'none' }}
         onChange={e => { const f = e.target.files?.[0]; if (f) handleFile(f) }}
       />

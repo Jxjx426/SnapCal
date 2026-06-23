@@ -13,6 +13,8 @@ export const translations = {
     tapToUpload: 'Tap to upload a photo',
     fileTypes: 'JPG · PNG · WEBP',
     orDragDrop: 'or drag & drop',
+    takePhoto: '📸 Take Photo',
+    chooseFromGallery: '🖼️ Choose from Gallery',
     weight: 'Weight',
     weightPlaceholder: 'Leave blank — AI will estimate',
     changeImage: '↑ Change',
@@ -51,7 +53,6 @@ export const translations = {
     keyModalGetFree: 'Get it free →',
     save: 'Save',
     cancel: 'Cancel',
-
   },
   zh: {
     // Header
@@ -65,6 +66,8 @@ export const translations = {
     tapToUpload: '点击上传照片',
     fileTypes: 'JPG · PNG · WEBP',
     orDragDrop: '或拖放图片',
+    takePhoto: '📸 拍照',
+    chooseFromGallery: '🖼️ 从相册选择',
     weight: '重量',
     weightPlaceholder: '留空让 AI 自动估算',
     changeImage: '↑ 更换',
