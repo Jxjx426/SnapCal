@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 import styles from './Header.module.css'
 import { Lang, translations } from '@/lib/translations'
 
@@ -15,7 +16,7 @@ export default function Header({ hasKey, onKeyClick, lang, onLangChange, t }: He
     <header className={styles.header}>
       <div className={styles.headerInner}>
         <div className={styles.logo}>
-          <div className={styles.logoIcon}>🥗</div>
+        <Image src="/logo.png" alt="SnapCal" width={34} height={34} className={styles.logoIcon} />
           <div className={styles.logoText}>{t.appName} <span>{t.appNameAccent} </span></div>
         </div>
 

@@ -3,7 +3,7 @@ export type Lang = 'en' | 'zh'
 export const translations = {
   en: {
     // Header
-    appName: 'Logit',
+    appName: 'SnapCal',
     appNameAccent: 'AI',
     keySet: 'Key set ✓',
     byok: 'Bring Your Own Key',
@@ -56,7 +56,7 @@ export const translations = {
   },
   zh: {
     // Header
-    appName: 'Logit',
+    appName: 'SnapCal',
     appNameAccent: 'AI',
     keySet: 'Key 已设置 ✓',
     byok: '自带 API Key',
