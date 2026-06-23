@@ -14,36 +14,5 @@
       padding: 16px 14px 40px;
     }
   }
-  
-  .motivation {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 18px 20px;
-    box-shadow: var(--shadow-sm);
-  }
-  
-  @media (max-width: 700px) {
-    .motivation {
-      grid-column: 1;
-    }
-  }
-  
-  .insightRow {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-  }
-  
-  @media (max-width: 700px) {
-    .insightRow {
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-  }
-  
+
   

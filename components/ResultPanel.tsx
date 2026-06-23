@@ -1,4 +1,5 @@
 import styles from './ResultPanel.module.css'
+import { translations } from '@/lib/translations'
 
 export interface NutritionResult {
   kcal: number
@@ -15,16 +16,19 @@ export interface NutritionResult {
 interface ResultPanelProps {
   result: NutritionResult | null
   weightProvided: boolean
+  t: typeof translations.en
 }
 
-export default function ResultPanel({ result, weightProvided }: ResultPanelProps) {
+export default function ResultPanel({ result, weightProvided, t }: ResultPanelProps) {
   if (!result) {
     return (
       <div className={styles.panel}>
         <div className={styles.emptyState}>
           <div className={styles.emptyIcon}>🤖</div>
-          <div className={styles.emptyText}>No analysis yet</div>
-          <div className={styles.emptySub}>Upload a meal photo and tap<br />Analyse Calories to get started</div>
+          <div className={styles.emptyText}>{t.noAnalysisYet}</div>
+          <div className={styles.emptySub} style={{ whiteSpace: 'pre-line' }}>
+            {t.noAnalysisSub}
+          </div>
         </div>
       </div>
     )
@@ -42,18 +46,18 @@ export default function ResultPanel({ result, weightProvided }: ResultPanelProps
   const fPct = 100 - pPct - cPct
 
   const macros = [
-    { emoji: '🥩', label: 'Protein', val: p,  bg: '#EDF7ED', color: '#5A9A5A' },
-    { emoji: '🌾', label: 'Carbs',   val: c,  bg: '#FDF5E6', color: '#B07A20' },
-    { emoji: '🫒', label: 'Fats',    val: f,  bg: '#FBF0EA', color: '#A06040' },
-    { emoji: '🌱', label: 'Fiber',   val: fi, bg: '#F5F5F0', color: '#7A8A70' },
+    { emoji: '🥩', label: t.protein, val: p,  bg: '#EDF7ED', color: '#5A9A5A' },
+    { emoji: '🌾', label: t.carbs,   val: c,  bg: '#FDF5E6', color: '#B07A20' },
+    { emoji: '🫒', label: t.fats,    val: f,  bg: '#FBF0EA', color: '#A06040' },
+    { emoji: '🌱', label: t.fiber,   val: fi, bg: '#F5F5F0', color: '#7A8A70' },
   ]
 
   return (
     <div className={styles.panel}>
-      <div className={styles.panelHead}>Estimated Nutrition</div>
+      <div className={styles.panelHead}>{t.estimatedNutrition}</div>
 
       <div className={styles.kcalBlock}>
-        <div className={styles.kcalLabelSmall}>Calories</div>
+        <div className={styles.kcalLabelSmall}>{t.calories}</div>
         <div className={styles.kcalNum}>~{Math.round(result.kcal)}</div>
         <div className={styles.kcalUnit}>kcal</div>
       </div>
@@ -83,18 +87,18 @@ export default function ResultPanel({ result, weightProvided }: ResultPanelProps
 
       {!weightProvided && result.estimated_weight_g && (
         <div className={styles.weightAuto}>
-          🤖 AI estimated weight: <strong>{result.estimated_weight_g}g</strong>
+          {t.aiEstimatedWeight}: <strong>{result.estimated_weight_g}g</strong>
         </div>
       )}
 
       {result.foods_identified && (
         <div className={styles.foodId}>
-          <strong>Identified: </strong>{result.foods_identified}
+          <strong>{t.identified}:</strong> {result.foods_identified}
         </div>
       )}
 
       <div className={styles.disclaimer}>
-        💡 These are estimates for reference only. Actual values may vary by cooking method and ingredients.
+        💡 {t.disclaimer}
       </div>
     </div>
   )

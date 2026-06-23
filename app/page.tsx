@@ -6,9 +6,11 @@ import UploadZone from '@/components/UploadZone'
 import ResultPanel, { NutritionResult } from '@/components/ResultPanel'
 import HealthScore from '@/components/HealthScore'
 import AIInsight from '@/components/AIInsight'
+import { translations, Lang } from '@/lib/translations'
 import styles from './page.module.css'
 
 export default function Home() {
+  const [lang, setLang] = useState<Lang>('en')
   const [apiKey, setApiKey] = useState('')
   const [keyModalOpen, setKeyModalOpen] = useState(false)
   const [imageUrl, setImageUrl] = useState<string | null>(null)
@@ -18,15 +20,24 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
 
+  const t = translations[lang]
+
   useEffect(() => {
     const stored = localStorage.getItem('gemini_key')
     if (stored) setApiKey(stored)
+    const storedLang = localStorage.getItem('logit_lang') as Lang | null
+    if (storedLang) setLang(storedLang)
   }, [])
 
   const handleSaveKey = (key: string) => {
     setApiKey(key)
     if (key) localStorage.setItem('gemini_key', key)
     else localStorage.removeItem('gemini_key')
+  }
+
+  const handleLangChange = (newLang: Lang) => {
+    setLang(newLang)
+    localStorage.setItem('logit_lang', newLang)
   }
 
   const handleImageLoad = (b64: string, url: string) => {
@@ -37,7 +48,7 @@ export default function Home() {
   }
 
   const analyze = async () => {
-    if (!imageB64) { setError('Please upload a photo first!'); return }
+    if (!imageB64) { setError(t.errorUploadFirst); return }
     if (!apiKey) { setKeyModalOpen(true); return }
 
     setIsLoading(true)
@@ -46,6 +57,10 @@ export default function Home() {
     const weightNote = weight
       ? `User provided total weight: ${weight}g.`
       : 'User did not provide weight — please estimate it.'
+    
+    const languageInstruction = lang === 'zh'
+      ? 'Respond in Simplified Chinese (简体中文) for "foods_identified" and "ai_insight".'
+      : 'Respond in English for "foods_identified" and "ai_insight".'
 
     const prompt = `You are a professional nutritionist with a warm, friendly tone. Analyse this meal photo and estimate its nutrition. ${weightNote}
 
@@ -91,7 +106,7 @@ Return ONLY this JSON, no extra text or markdown:
       setResult(parsed)
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : 'Unknown error'
-      setError('Analysis failed: ' + msg)
+      setError(`${t.errorAnalysisFailed} :${msg}`)
     } finally {
       setIsLoading(false)
     }
@@ -103,29 +118,35 @@ Return ONLY this JSON, no extra text or markdown:
 
   return (
     <>
-      <Header hasKey={!!apiKey} onKeyClick={() => setKeyModalOpen(true)} />
+      <Header
+        hasKey={!!apiKey}
+        onKeyClick={() => setKeyModalOpen(true)}
+        lang={lang}
+        onLangChange={handleLangChange}
+        t={t}
+      />
 
       <main className={styles.main}>
         <UploadZone
           imageUrl={imageUrl}
-          bubbles={bubbles}
+          bubbles={result ? { protein: Math.round(result.protein_g), carbs: Math.round(result.carbs_g), fat: Math.round(result.fat_g) } : null}
           weight={weight}
           onWeightChange={setWeight}
           onImageLoad={handleImageLoad}
           onAnalyze={analyze}
           isLoading={isLoading}
           error={error}
+          t={t}
         />
 
-        <ResultPanel result={result} weightProvided={!!weight} />
+        <ResultPanel result={result} weightProvided={!!weight} t={t} />
 
         {result && (
           <div className={styles.insightRow}>
-            <HealthScore score={result.health_score} />
-            <AIInsight insight={result.ai_insight} />
+            <HealthScore score={result.health_score} t={t} />
+            <AIInsight insight={result.ai_insight} t={t} />
           </div>
         )}
-
       </main>
 
       <KeyModal
@@ -133,6 +154,7 @@ Return ONLY this JSON, no extra text or markdown:
         currentKey={apiKey}
         onSave={handleSaveKey}
         onClose={() => setKeyModalOpen(false)}
+        t={t}
       />
     </>
   )

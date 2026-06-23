@@ -1,6 +1,7 @@
 'use client'
 import { useRef } from 'react'
 import styles from './UploadZone.module.css'
+import { translations } from '@/lib/translations'
 
 interface NutritionBubbles {
   protein: number
@@ -17,11 +18,12 @@ interface UploadZoneProps {
   onAnalyze: () => void
   isLoading: boolean
   error: string
+  t: typeof translations.en
 }
 
 export default function UploadZone({
   imageUrl, bubbles, weight, onWeightChange,
-  onImageLoad, onAnalyze, isLoading, error,
+  onImageLoad, onAnalyze, isLoading, error, t,
 }: UploadZoneProps) {
   const fileRef = useRef<HTMLInputElement>(null)
 
@@ -43,7 +45,7 @@ export default function UploadZone({
 
   return (
     <div className={styles.panel}>
-      <div className={styles.panelHead}>📷 Upload Meal Photo</div>
+      <div className={styles.panelHead}>📷 {t.mealPhoto}</div>
 
       <div
         className={`${styles.dropZone} ${imageUrl ? styles.hasImage : ''}`}
@@ -59,15 +61,15 @@ export default function UploadZone({
             {bubbles && (
               <>
                 <div className={`${styles.bubble} ${styles.bubbleProtein}`}>
-                  <span className={styles.bubbleLabel}>🥩 Protein</span>
+                  <span className={styles.bubbleLabel}>🥩 {t.protein}</span>
                   <span className={styles.bubbleVal}>{bubbles.protein}g</span>
                 </div>
                 <div className={`${styles.bubble} ${styles.bubbleCarbs}`}>
-                  <span className={styles.bubbleLabel}>🌾 Carbs</span>
+                  <span className={styles.bubbleLabel}>🌾 {t.carbs}</span>
                   <span className={styles.bubbleVal}>{bubbles.carbs}g</span>
                 </div>
                 <div className={`${styles.bubble} ${styles.bubbleFat}`}>
-                  <span className={styles.bubbleLabel}>🫒 Fats</span>
+                  <span className={styles.bubbleLabel}>🫒 {t.fats}</span>
                   <span className={styles.bubbleVal}>{bubbles.fat}g</span>
                 </div>
 
@@ -98,17 +100,17 @@ export default function UploadZone({
         ) : (
           <div className={styles.placeholder}>
             <div className={styles.placeholderIcon}>🍽️</div>
-            <div className={styles.placeholderText}>点击或拖放图片</div>
-            <div className={styles.placeholderSub}>支持 JPG、PNG、WEBP</div>
+            <div className={styles.placeholderText}>{t.tapToUpload}</div>
+            <div className={styles.placeholderSub}>{t.fileTypes}</div>
           </div>
         )}
       </div>
 
       <div className={styles.weightRow}>
-        <label>总重量</label>
+        <label>{t.weight}</label>
         <input
           type="number"
-          placeholder="留空让 AI 估算"
+          placeholder={t.weightPlaceholder}
           value={weight}
           onChange={e => onWeightChange(e.target.value)}
           min={1}
@@ -119,14 +121,13 @@ export default function UploadZone({
 
       <div className={styles.btnRow}>
         <button className={styles.btnUpload} onClick={() => fileRef.current?.click()}>
-          ↑ 换图片
+          ↑ {t.changeImage}
         </button>
         <button className={styles.btnAnalyze} onClick={onAnalyze} disabled={isLoading}>
           {isLoading ? (
-            <><span className={styles.spin} /> 分析中...</>
-          ) : (
-            '✨ 分析卡路里'
-          )}
+            <><span className={styles.spin} /> {t.analyzing}</>
+          ) : t.analyzeButton
+          }
         </button>
       </div>
 
