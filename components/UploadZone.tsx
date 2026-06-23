@@ -54,7 +54,7 @@ export default function UploadZone({
 
       <div
         className={`${styles.dropZone} ${imageUrl ? styles.hasImage : ''}`}
-        onClick={() => fileRef.current?.click()}
+        onClick={() => setPickerOpen(true)}
         onDragOver={e => e.preventDefault()}
         onDrop={onDrop}
       >
@@ -125,7 +125,7 @@ export default function UploadZone({
       </div>
 
       <div className={styles.btnRow}>
-        <button className={styles.btnUpload} onClick={() => fileRef.current?.click()}>
+      <button className={styles.btnUpload} onClick={() => setPickerOpen(true)}>
           ↑ {t.changeImage}
         </button>
         <button className={styles.btnAnalyze} onClick={onAnalyze} disabled={isLoading}>
