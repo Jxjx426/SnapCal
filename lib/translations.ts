@@ -6,7 +6,7 @@ export const translations = {
     appName: 'SnapCal',
     appNameAccent: 'AI',
     keySet: 'Key set ✓',
-    byok: 'Bring Your Own Key',
+    byok: 'Bring Your\nOwn Key',
 
     // Upload zone
     mealPhoto: 'Meal Photo',
