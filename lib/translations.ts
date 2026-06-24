@@ -6,7 +6,7 @@ export const translations = {
     appName: 'SnapCal',
     appNameAccent: 'AI',
     keySet: 'Key set ✓',
-    byok: 'Bring Your\nOwn Key',
+    byok: 'Your API Key',
 
     // Upload zone
     mealPhoto: 'Meal Photo',
@@ -16,7 +16,7 @@ export const translations = {
     takePhoto: '📸 Take Photo',
     chooseFromGallery: '🖼️ Choose from Gallery',
     weight: 'Weight',
-    weightPlaceholder: 'Leave blank — AI will estimate',
+    weightPlaceholder: 'Can Leave blank — AI will estimate',
     changeImage: '↑ Change',
     analyzing: 'Analysing...',
     analyzeButton: '✨ Analyse Calories',
@@ -69,7 +69,7 @@ export const translations = {
     takePhoto: '📸 拍照',
     chooseFromGallery: '🖼️ 从相册选择',
     weight: '重量',
-    weightPlaceholder: '留空让 AI 自动估算',
+    weightPlaceholder: '可留空让 AI 自动估算',
     changeImage: '↑ 更换',
     analyzing: '分析中...',
     analyzeButton: '✨ 分析卡路里',
