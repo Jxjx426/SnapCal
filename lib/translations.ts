@@ -16,7 +16,7 @@ export const translations = {
     takePhoto: '📸 Take Photo',
     chooseFromGallery: '🖼️ Choose from Gallery',
     weight: 'Weight',
-    weightPlaceholder: 'Can Leave blank — AI will estimate',
+    weightPlaceholder: 'Can Leave blank ',
     changeImage: '↑ Change',
     analyzing: 'Analysing...',
     analyzeButton: '✨ Analyse Calories',
