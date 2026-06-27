@@ -4,7 +4,6 @@ export const translations = {
   en: {
     // Header
     appName: 'SnapCal',
-    appNameAccent: 'AI',
     keySet: 'Key set ✓',
     byok: 'Your API Key',
 
@@ -57,7 +56,6 @@ export const translations = {
   zh: {
     // Header
     appName: 'SnapCal',
-    appNameAccent: 'AI',
     keySet: 'Key 已设置 ✓',
     byok: '自带 API Key',
 
