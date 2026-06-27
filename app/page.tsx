@@ -58,11 +58,13 @@ export default function Home() {
       ? `User provided total weight: ${weight}g.`
       : 'User did not provide weight — please estimate it.'
     
-    const languageInstruction = lang === 'zh'
-      ? 'Respond in Simplified Chinese (简体中文) for "foods_identified" and "ai_insight".'
-      : 'Respond in English for "foods_identified" and "ai_insight".'
-
-    const prompt = `You are a professional nutritionist with a warm, friendly tone. Analyse this meal photo and estimate its nutrition. ${weightNote}
+      const languageInstruction = lang === 'zh'
+      ? 'IMPORTANT: You must write the values of "foods_identified" and "ai_insight" ENTIRELY in Simplified Chinese (简体中文). Do not use any English in those two fields.'
+      : 'Write the values of "foods_identified" and "ai_insight" in English.'
+ 
+    const prompt = `${languageInstruction}
+ 
+You are a professional nutritionist with a warm, friendly tone. Analyse this meal photo and estimate its nutrition. ${weightNote}
 
 Return ONLY this JSON, no extra text or markdown:
 {
@@ -72,9 +74,9 @@ Return ONLY this JSON, no extra text or markdown:
   "fat_g": <number>,
   "fiber_g": <number>,
   "estimated_weight_g": <number, use user value if provided>,
-  "foods_identified": "<brief description in English>",
+  "foods_identified": "<brief description${lang === 'zh' ? ' — 必须用简体中文' : ' in English'}>",
   "health_score": <number 0-100, how nutritionally balanced this meal is>,
-  "ai_insight": "<one short, warm, non-robotic sentence (max 25 words) with friendly feedback on this meal, e.g. praising protein/fats and gently suggesting one improvement>"
+  "ai_insight": "<one short, warm, non-robotic sentence (max 25 words)${lang === 'zh' ? ' — 必须用简体中文，不要用英文' : ' in English'} with friendly feedback on this meal, e.g. praising protein/fats and gently suggesting one improvement>"
 }`
 
     try {
@@ -111,10 +113,6 @@ Return ONLY this JSON, no extra text or markdown:
       setIsLoading(false)
     }
   }
-
-  const bubbles = result
-    ? { protein: Math.round(result.protein_g), carbs: Math.round(result.carbs_g), fat: Math.round(result.fat_g) }
-    : null
 
   return (
     <>

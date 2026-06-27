@@ -17,7 +17,7 @@ export default function Header({ hasKey, onKeyClick, lang, onLangChange, t }: He
       <div className={styles.headerInner}>
         <div className={styles.logo}>
         <Image src="/logo.png" alt="SnapCal" width={34} height={34} className={styles.logoIcon} />
-          <div className={styles.logoText}>{t.appName} <span>{t.appNameAccent} </span></div>
+          <div className={styles.logoText}>{t.appName}</div>
         </div>
 
         <div className={styles.langSwitch}>
